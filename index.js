@@ -4,11 +4,11 @@ const OPERATIONS = ["Consultar saldo", "Ingresar monto", "Retirar Monto"];
 
 
 // ------- array con la lista de usuarios ---------
-// creo un array de objetos, donde cada objeto tiene un nombre de usuario, un saldo y una contraseña
+// creo un array de objetos, donde cada objeto tiene un nombre de usuario, un balance y una contraseña
 let users = [
-    {name: "Angie", saldo: 100, pass: "user1"},
-    {name: "Carolina", saldo: 150, pass: "user2"},
-    {name: "Sandra", saldo: 200, pass: "user3" },
+    {name: "Angie", balance: 100, pass: "user1"},
+    {name: "Carolina", balance: 150, pass: "user2"},
+    {name: "Sandra", balance: 200, pass: "user3" },
 ];
 
 
@@ -67,7 +67,7 @@ action = parseInt(action);
 // -------- Consultar saldo -----------
 if (action === 1) {
     transaction = "Consultar saldo \n";
-    alert(`su saldo actual es de: ${userExist.saldo} USD`);
+    alert(`su balance actual es de: ${userExist.balance} USD`);
 };
 
 
@@ -76,15 +76,15 @@ if (action === 2) {
     let amount = prompt("ingrese el monto a consignar");
     amount = parseInt(amount);
 
-    while (typeof(amount) !== "number" || (userExist.saldo + amount) > 990) {
+    while (typeof(amount) !== "number" || (userExist.balance + amount) > 990) {
         amount = prompt(
-            `ingrese un monto valido a consignar. \nRecuerde que su cuenta tiene un tope de almacenamiento de 990 USD y su saldo actual es de ${userExist.saldo} USD.`
+            `ingrese un monto valido a consignar. \nRecuerde que su cuenta tiene un tope de almacenamiento de 990 USD y su saldo actual es de ${userExist.balance} USD.`
         );
         amount = parseInt(amount);
     };
 
     transaction = "Consignar dinero \n";
-    alert(`Ha ingresado ${amount} USD.\nSu nuevo saldo es: ${userExist.saldo + amount} USD.`);
+    alert(`Ha ingresado ${amount} USD.\nSu nuevo balance es: ${userExist.balance + amount} USD.`);
 };
 
 
@@ -93,16 +93,17 @@ if (action === 3) {
     let amount = prompt("ingrese el monto a retirar");
     amount = parseInt(amount);
 
-    while (typeof(amount) !== "number" || (userExist.saldo - amount) < 10) {
+    while (typeof(amount) !== "number" || (userExist.balance - amount) < 10) {
         amount = prompt(
-            `ingrese un monto valido a retirar. \nRecuerde que su cuenta debe mantener un saldo mínimo de 10 USD  y su saldo actual es de ${userExist.saldo} USD.`
+            `ingrese un monto valido a retirar. \nRecuerde que su cuenta debe mantener un balance mínimo de 10 USD  y su saldo actual es de ${userExist.balance} USD.`
         );
         amount = parseInt(amount);
     };
 
     transaction = "Retirar dinero \n";
-    alert(`Ha retirado ${amount} USD.\nSu nuevo saldo es: ${userExist.saldo - amount} USD.`);
+    alert(`Ha retirado ${amount} USD.\nSu nuevo saldo es: ${userExist.balance - amount} USD.`);
 };
+
 
 // -------- Agradecer y despedir al usuario --------
 alert("Gracias por usar nuestros servicios.");
@@ -112,6 +113,7 @@ dateEnd = new Date();
 // ------ Crear los elementos HTML del resumen ------
 let divSummary = document.createElement("div");
 const h1Title = document.createElement("h1");
+const pUser = document.createElement("p");
 const pDateStart = document.createElement("p");
 const pTransaction = document.createElement("p");
 const pDateEnd = document.createElement("p");
@@ -119,6 +121,7 @@ const pDateEnd = document.createElement("p");
 
 // ------ Poner el resultado a las variables resumen ------
 h1Title.textContent = title;
+pUser.textContent = `Usuario: ${userExist.name}`;
 pDateStart.textContent = `Fecha y hora de ingreso: ${dateStart}`;
 pTransaction.textContent = `Transacción realizada: ${transaction}`;
 pDateEnd.textContent = `Fecha y hora finalización:  ${dateEnd}`;
@@ -126,9 +129,11 @@ pDateEnd.textContent = `Fecha y hora finalización:  ${dateEnd}`;
 
 // -------- Presentar el resumen de la transacción -------------
 divSummary.appendChild(h1Title);
+divSummary.appendChild(pUser);
 divSummary.appendChild(pDateStart);
 divSummary.appendChild(pTransaction);
 divSummary.appendChild(pDateEnd);
+
 
 // ----- Agregar el Summary al Body -----------------------
 document.body.appendChild(divSummary);
